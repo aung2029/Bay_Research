@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aung Ko Ko Oo — AI Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1117;
+    --ink-2: #1e2330;
+    --ink-3: #2d3347;
+    --slate: #4a5568;
+    --slate-mid: #6b7fa3;
+    --slate-light: #94a3b8;
+    --accent: #3d6fad;
+    --accent-bright: #4f8fd4;
+    --accent-glow: rgba(61, 111, 173, 0.12);
+    --accent-glow-2: rgba(79, 143, 212, 0.08);
+    --surface: #f8f9fc;
+    --surface-2: #f1f4f9;
+    --surface-3: #e8edf5;
+    --border: rgba(61, 111, 173, 0.15);
+    --border-2: rgba(100, 130, 180, 0.2);
+    --white: #ffffff;
+    --text: #1a2035;
+    --text-2: #374151;
+    --text-muted: #64748b;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'Syne', sans-serif;
+    --radius: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 5rem;
+    position: relative;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 60%, rgba(61,111,173,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(79,143,212,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    border: 1px solid rgba(79,143,212,0.35);
+    padding: 5px 14px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+    width: fit-content;
+    position: relative;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(2.6rem, 4vw, 3.8rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .hero-name .line2 {
+    color: var(--accent-bright);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 380px;
+    position: relative;
+  }
+
+  .hero-bio {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+    max-width: 400px;
+    position: relative;
+  }
+
+  .hero-bio strong {
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 11px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-bright);
+    border-color: var(--accent-bright);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 11px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-1px);
+  }
+
+  .hero-right {
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 5rem 6rem 4rem;
+    position: relative;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(61,111,173,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-stat-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .hero-stat {
+    background: var(--white);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .stat-number {
+    font-family: var(--sans);
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .stat-unit {
+    color: var(--accent);
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .hero-affil {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    position: relative;
+  }
+
+  .affil-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text-2);
+  }
+
+  .affil-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .affil-dot.dim {
+    background: var(--slate-light);
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 6rem 0;
+  }
+
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-sub {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 480px;
+  }
+
+  /* EDUCATION */
+  #education {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  #education .section-eyebrow {
+    color: var(--accent-bright);
+  }
+
+  #education .section-eyebrow::after {
+    background: rgba(79,143,212,0.3);
+  }
+
+  #education .section-title {
+    color: var(--white);
+  }
+
+  #education .section-sub {
+    color: rgba(255,255,255,0.55);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .edu-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .edu-card:hover {
+    border-color: rgba(79,143,212,0.4);
+    background: rgba(61,111,173,0.08);
+  }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  }
+
+  .edu-degree-type {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .edu-degree {
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+    line-height: 1.25;
+  }
+
+  .edu-field {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.5rem;
+  }
+
+  .edu-school {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-location {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .edu-pill {
+    margin-top: 1.5rem;
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+
+  .edu-pill.expected {
+    color: var(--accent-bright);
+    border-color: rgba(79,143,212,0.35);
+    background: rgba(61,111,173,0.12);
+  }
+
+  .edu-pill.gpa {
+    color: rgba(255,255,255,0.6);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* RESEARCH INTERESTS */
+  #research {
+    background: var(--surface);
+  }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .research-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .research-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(61,111,173,0.1);
+  }
+
+  .research-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius);
+    background: var(--accent-glow);
+    border: 1px solid rgba(61,111,173,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .research-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .research-card-title {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .research-card-desc {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .research-tags {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(61,111,173,0.15);
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  /* EXPERIENCE */
+  #experience {
+    background: var(--white);
+  }
+
+  .exp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .exp-left {
+    position: relative;
+  }
+
+  .exp-card {
+    background: var(--ink);
+    border-radius: var(--radius-xl);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(61,111,173,0.3) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .exp-logo {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .exp-org {
+    font-family: var(--sans);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .exp-role-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+
+  .exp-mission-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.6rem;
+    position: relative;
+  }
+
+  .exp-mission {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    position: relative;
+  }
+
+  .exp-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .exp-focus-item {
+    border-left: 2px solid var(--border);
+    padding-left: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .exp-focus-item:hover {
+    border-color: var(--accent);
+  }
+
+  .exp-focus-title {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+
+  .exp-focus-desc {
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* PUBLICATIONS */
+  #publications {
+    background: var(--surface);
+  }
+
+  .pub-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .pub-tabs {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--surface-3);
+    padding: 4px;
+    border-radius: var(--radius);
+  }
+
+  .pub-tab {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    background: transparent;
+  }
+
+  .pub-tab.active {
+    background: var(--white);
+    color: var(--accent);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pub-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: border-color 0.2s;
+  }
+
+  .pub-item:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .pub-item:last-child { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+  .pub-item:not(:last-child) { border-bottom: none; }
+  .pub-item:hover { border-color: var(--accent); }
+
+  .pub-year {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    line-height: 1.45;
+  }
+
+  .pub-meta {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .pub-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .pub-badge {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+
+  .pub-badge.coming {
+    color: var(--slate-mid);
+    border-color: var(--border-2);
+    background: var(--surface-2);
+  }
+
+  .pub-badge.preprint {
+    color: #7c5db4;
+    border-color: rgba(124,93,180,0.25);
+    background: rgba(124,93,180,0.06);
+  }
+
+  .pub-badge.cv {
+    color: var(--accent);
+    border-color: rgba(61,111,173,0.25);
+    background: var(--accent-glow-2);
+  }
+
+  .pub-badge.robotics {
+    color: #26744c;
+    border-color: rgba(38,116,76,0.25);
+    background: rgba(38,116,76,0.06);
+  }
+
+  .pub-link {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid rgba(61,111,173,0.25);
+    border-radius: var(--radius);
+    transition: all 0.2s;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .pub-link:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 10% 50%, rgba(61,111,173,0.2) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 30%, rgba(79,143,212,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .contact-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .contact-left .section-eyebrow {
+    color: var(--accent-bright);
+  }
+
+  .contact-left .section-eyebrow::after {
+    background: rgba(79,143,212,0.3);
+  }
+
+  .contact-left .section-title {
+    color: var(--white);
+  }
+
+  .contact-tagline {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+    margin-top: 0.75rem;
+    line-height: 1.75;
+  }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.25s;
+    group: true;
+  }
+
+  .contact-link:hover {
+    background: rgba(61,111,173,0.15);
+    border-color: rgba(79,143,212,0.35);
+    transform: translateX(4px);
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    background: rgba(61,111,173,0.2);
+    border: 1px solid rgba(61,111,173,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent-bright);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-link-value {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .contact-arrow {
+    margin-left: auto;
+    color: rgba(255,255,255,0.25);
+    font-size: 1rem;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .contact-link:hover .contact-arrow {
+    color: var(--accent-bright);
+    transform: translateX(4px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #080b12;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-text a {
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+  }
+
+  /* FADE IN ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE NAV */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    z-index: 99;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+
+    .hero-left {
+      padding: 7rem 2rem 4rem;
+      min-height: 60vh;
+    }
+
+    .hero-right {
+      padding: 3rem 2rem 5rem;
+    }
+
+    .edu-grid { grid-template-columns: 1fr; }
+    .research-grid { grid-template-columns: 1fr; }
+    .exp-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+    .pub-item {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .pub-year { display: none; }
+
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 4rem 0; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    .hero-right { padding: 2.5rem 1.5rem 4rem; }
+    .container { padding: 0 1.5rem; }
+    .hero-stats { grid-template-columns: 1fr; }
+    .hero-name { font-size: 2.2rem; }
+  }
+
+  /* Decorative grid bg in hero right */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(61,111,173,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,111,173,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* Vertical rhythm line in edu */
+  .timeline-connector {
+    display: none;
+  }
+
+  /* PROFILE PHOTO */
+  .photo-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .photo-frame {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid rgba(79,143,212,0.4);
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    flex-shrink: 0;
+  }
+
+  .photo-frame:hover {
+    border-color: var(--accent-bright);
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .photo-placeholder svg {
+    width: 28px;
+    height: 28px;
+    stroke: rgba(79,143,212,0.6);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .photo-placeholder span {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15,17,23,0.55);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+
+  .photo-frame:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .photo-overlay svg {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .photo-overlay span {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .photo-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(79,143,212,0.3);
+    animation: spin 18s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .photo-identity {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .photo-identity-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .photo-identity-name {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .photo-identity-role {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .photo-input {
+    display: none;
+  }
+
+  .photo-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+
+  .photo-btn {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .photo-btn.upload {
+    color: var(--accent);
+    border-color: rgba(61,111,173,0.35);
+  }
+
+  .photo-btn.upload:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+  }
+
+  .photo-btn.remove {
+    color: var(--text-muted);
+    border-color: var(--border-2);
+    display: none;
+  }
+
+  .photo-btn.remove:hover {
+    color: #c0392b;
+    border-color: rgba(192,57,43,0.3);
+  }
+
+  .photo-has-img .photo-btn.remove { display: inline-flex; }
+  .photo-has-img .photo-btn.upload { display: none; }
+
+
+.btn-outline {
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: #15bed1;
+    color: #e86b11;
+    border-color: #c7c23a;
+    cursor: pointer;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Artificial Intelligence Research Institute</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Institute</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="#education" onclick="this.closest('.mobile-menu').classList.remove('open')">Education</a>
+  <a href="#research" onclick="this.closest('.mobile-menu').classList.remove('open')">Research</a>
+  <a href="#experience" onclick="this.closest('.mobile-menu').classList.remove('open')">Institute</a>
+  <a href="#publications" onclick="this.closest('.mobile-menu').classList.remove('open')">Publications</a>
+  <a href="#contact" onclick="this.closest('.mobile-menu').classList.remove('open')">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">AI Researcher · Myanmar</div>
+    <h2 class="hero-name">
+      Aung Ko Ko Oo
+    </h2>
+  <div class="hero-cta">
+    <a href="#research" class="btn-primary">View Research</a>
+
+    <a href="BAIRI.html" class="btn-outline">Burmese Artificial Intelligence Research Institute</a>
+
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+</div>
+    <p class="hero-bio">
+      Pioneering research at the intersection of <strong>Computer Vision</strong>, <strong>Robotics</strong>, and <strong>Machine Learning</strong> — with a mission to build intelligent systems and advance AI capabilities for low-resource languages and underserved communities worldwide.
+    </p>
+    <div class="hero-cta">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="grid-bg"></div>
+
+    <!-- PROFILE PHOTO WIDGET -->
+    <div class="photo-identity" id="photoWidget">
+      <div style="position: relative; flex-shrink: 0;">
+        <div class="photo-ring"></div>
+        <div class="photo-frame" id="photoFrame" onclick="document.getElementById('photoInput').click()" title="Click to upload photo">
+          <div class="photo-placeholder" id="photoPlaceholder">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Upload<br>Photo</span>
+          </div>
+          <img id="photoImg" src="" alt="Profile photo" style="display:none;">
+          <div class="photo-overlay">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Change</span>
+          </div>
+        </div>
+      </div>
+      <div class="photo-identity-text">
+        <div class="photo-identity-name">Aung Ko Ko Oo</div>
+        <div class="photo-identity-role">AI Researcher & Institute Founder</div>
+        <div class="photo-actions">
+          <button class="photo-btn upload" onclick="document.getElementById('photoInput').click()">Upload Photo</button>
+          <button class="photo-btn remove" onclick="removePhoto()">Remove</button>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="photoInput" class="photo-input" accept="image/*" onchange="handlePhoto(this)">
+
+    <p class="hero-stat-label">At a glance</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-number">3.8<span class="stat-unit">★</span></div>
+        <div class="stat-label">GPA — B.S. Computer Science</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-number">3<span class="stat-unit">+</span></div>
+        <div class="stat-label">Active Research Focus Areas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-number">2<span class="stat-unit"> uni</span></div>
+        <div class="stat-label">US Academic Institutions</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-number">AI<span class="stat-unit">✦</span></div>
+        <div class="stat-label">Institute Founder & Director</div>
+      </div>
+    </div>
+
+    <div class="hero-affil">
+      <div class="affil-item">
+        <div class="affil-dot"></div>
+        <span>Georgia Institute of Technology — M.S. Candidate</span>
+      </div>
+      <div class="affil-item">
+        <div class="affil-dot"></div>
+        <span>University of the People — B.S. Graduate</span>
+      </div>
+      <div class="affil-item">
+        <div class="affil-dot dim"></div>
+        <span>Burmese AI Research Institute — Founder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-eyebrow">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <p class="section-sub">A rigorous foundation spanning computer science fundamentals to cutting-edge robotics and perception research.</p>
+
+    <div class="edu-grid fade-up">
+      <div class="edu-card">
+        <div class="edu-degree-type">Graduate Degree</div>
+        <div class="edu-degree">Master of Science (M.S.)</div>
+        <div class="edu-field">in Computational Perception & Robotics</div>
+        <div class="edu-school">Georgia Institute of Technology</div>
+        <div class="edu-location">Atlanta, Georgia, USA</div>
+        <div class="edu-pill expected">Expected 2027</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree-type">Undergraduate Degree</div>
+        <div class="edu-degree">Bachelor of Science (B.S.)</div>
+        <div class="edu-field">in Computer Science</div>
+        <div class="edu-school">University of the People</div>
+        <div class="edu-location">Pasadena, California, USA</div>
+        <div class="edu-pill gpa">GPA: 3.8 / 4.0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH INTERESTS -->
+<section id="research">
+  <div class="container">
+    <div class="section-eyebrow">Research Areas</div>
+    <h2 class="section-title">Research Interests</h2>
+    <p class="section-sub">Exploring the frontiers of intelligent systems — from perception and learning to embodied autonomy.</p>
+
+    <div class="research-grid fade-up">
+      <!-- AI/ML -->
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="research-card-title">Artificial Intelligence & Machine Learning</h3>
+        <p class="research-card-desc">Deep learning architectures, neural network optimization, transfer learning, and developing AI solutions for resource-constrained environments and low-resource language processing.</p>
+        <div class="research-tags">
+          <span class="tag">Deep Learning</span>
+          <span class="tag">NLP</span>
+          <span class="tag">Low-Resource AI</span>
+          <span class="tag">Optimization</span>
+        </div>
+      </div>
+
+      <!-- Computer Vision -->
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
+          </svg>
+        </div>
+        <h3 class="research-card-title">Computer Vision</h3>
+        <p class="research-card-desc">Image recognition, object detection, semantic segmentation, 3D scene understanding, and visual perception systems for real-world autonomous applications.</p>
+        <div class="research-tags">
+          <span class="tag">Object Detection</span>
+          <span class="tag">Segmentation</span>
+          <span class="tag">3D Perception</span>
+          <span class="tag">Scene Understanding</span>
+        </div>
+      </div>
+
+      <!-- Robotics / HRI -->
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="8" width="18" height="12" rx="2"/>
+            <path d="M8 8V5a4 4 0 018 0v3"/>
+            <circle cx="9" cy="14" r="1.5"/>
+            <circle cx="15" cy="14" r="1.5"/>
+            <path d="M9 18h6"/>
+          </svg>
+        </div>
+        <h3 class="research-card-title">Robotics & Human-Robot Interaction</h3>
+        <p class="research-card-desc">Autonomous navigation, manipulation, sensor fusion, and designing safe, intuitive human-robot collaborative systems that operate effectively in complex real-world settings.</p>
+        <div class="research-tags">
+          <span class="tag">HRI</span>
+          <span class="tag">Autonomy</span>
+          <span class="tag">Sensor Fusion</span>
+          <span class="tag">Navigation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-eyebrow">Leadership & Impact</div>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Building institutional infrastructure to accelerate AI research and education in Myanmar and Southeast Asia.</p>
+
+    <div class="exp-layout fade-up">
+      <div class="exp-left">
+        <div class="exp-card">
+          <div class="exp-logo">BAIRI</div>
+          <div class="exp-org">Burmese Artificial Intelligence Research Institute</div>
+          <div class="exp-role-title">Position</div>
+          <div class="exp-role">Founder & Director</div>
+          <div class="exp-mission-label">Mission Statement</div>
+          <p class="exp-mission">To advance artificial intelligence research, cultivate local talent, and enable technological growth through open knowledge — with a special focus on low-resource Burmese language processing and inclusive AI development for the Myanmar community and broader Southeast Asian region.</p>
+        </div>
+      </div>
+
+      <div class="exp-right">
+        <div class="exp-focus-item">
+          <div class="exp-focus-title">Low-Resource Language AI</div>
+          <p class="exp-focus-desc">Driving research into NLP and language models for the Burmese language — an under-resourced language with complex script, morphology, and tonal features that challenge conventional AI systems.</p>
+        </div>
+        <div class="exp-focus-item">
+          <div class="exp-focus-title">Research Community Building</div>
+          <p class="exp-focus-desc">Establishing collaborative research networks, mentorship pipelines, and educational resources to develop the next generation of AI researchers from Myanmar and the broader region.</p>
+        </div>
+        <div class="exp-focus-item">
+          <div class="exp-focus-title">Technological Capacity Development</div>
+          <p class="exp-focus-desc">Bridging the gap between global AI advances and local application by adapting state-of-the-art methods to contexts with limited computational resources and infrastructure.</p>
+        </div>
+        <div class="exp-focus-item">
+          <div class="exp-focus-title">Open Science & Knowledge Sharing</div>
+          <p class="exp-focus-desc">Committed to publishing open-access research, releasing public datasets, and sharing tools that benefit the broader scientific community and practitioners in developing regions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="pub-header-row">
+      <div>
+        <div class="section-eyebrow">Scholarly Work</div>
+        <h2 class="section-title">Publications & Projects</h2>
+      </div>
+      <div class="pub-tabs">
+        <button class="pub-tab active">All</button>
+        <button class="pub-tab">Papers</button>
+        <button class="pub-tab">Projects</button>
+      </div>
+    </div>
+
+    <div class="pub-list fade-up">
+      <!-- Placeholder 1 -->
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Low-Resource Burmese Language Model: Challenges and Approaches for Neural NLP in Morphologically Complex Languages</div>
+          <div class="pub-meta">Aung Ko Ko Oo — Working Paper, Burmese AI Research Institute</div>
+          <div class="pub-tags">
+            <span class="pub-badge preprint">In Preparation</span>
+            <span class="pub-badge cv">NLP</span>
+          </div>
+        </div>
+        <a href="#" class="pub-link">Draft ↗</a>
+      </div>
+
+      <!-- Placeholder 2 -->
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Perception-Aware Robot Navigation in Unstructured Environments: A Survey of Sensor Fusion Approaches</div>
+          <div class="pub-meta">Aung Ko Ko Oo — Research Prospectus, Georgia Tech CPR Program</div>
+          <div class="pub-tags">
+            <span class="pub-badge preprint">In Preparation</span>
+            <span class="pub-badge robotics">Robotics</span>
+          </div>
+        </div>
+        <a href="#" class="pub-link">Draft ↗</a>
+      </div>
+
+      <!-- Placeholder 3 -->
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Open-Vocabulary Object Detection for Real-Time Robotic Grasping with Limited Compute</div>
+          <div class="pub-meta">Aung Ko Ko Oo — Active Project, Georgia Institute of Technology</div>
+          <div class="pub-tags">
+            <span class="pub-badge coming">Active Project</span>
+            <span class="pub-badge cv">Computer Vision</span>
+            <span class="pub-badge robotics">Robotics</span>
+          </div>
+        </div>
+        <a href="#" class="pub-link">GitHub ↗</a>
+      </div>
+
+      <!-- Placeholder 4 - note -->
+      <div class="pub-item" style="background: var(--surface-2); border-style: dashed;">
+        <div class="pub-year" style="color: var(--slate-light);">—</div>
+        <div>
+          <div class="pub-title" style="color: var(--text-muted); font-style: italic; font-weight: 400;">Additional publications, preprints, and project write-ups will appear here as research progresses. Check Google Scholar for the most current list.</div>
+          <div class="pub-tags" style="margin-top: 0.75rem;">
+            <span class="pub-badge coming">More coming soon</span>
+          </div>
+        </div>
+        <a href="#" class="pub-link">Scholar ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-eyebrow">Contact</div>
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="contact-tagline">Open to research collaborations, academic discussions, and opportunities at the frontier of AI, vision, and robotics. Reach out through any of the channels below.</p>
+      </div>
+
+      <div class="contact-right fade-up">
+        <a href="mailto:aungkokoo@example.com" class="contact-link">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">AungKoKoOo@my.uopeople.edu</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://github.com/sage2029" class="contact-link" target="_blank" rel="noopener">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-value">This is my GitHub profile</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/austin2029/" class="contact-link" target="_blank" rel="noopener">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">This is my LinkedIn profile</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=1&gmla=AIqSsVuA4uNNUBBDZRyh1tKfimFAaXiUqjHcfNbxRjJfjzZirmCUE-ihJwOwaHmIekkC0jJnAi8HB5aoVRKpYA&user=2uIqHIMAAAAJ" class="contact-link" target="_blank" rel="noopener">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">Google Scholar</div>
+            <div class="contact-link-value">This is my Google Scholar profile</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-text">© 2025 Aung Ko Ko Oo · AI Researcher · Burmese Artificial Intelligence Research Institute · Built with care</p>
+</footer>
+
+<script>
+  // Profile photo handlers
+  function handlePhoto(input) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('photoImg');
+      const placeholder = document.getElementById('photoPlaceholder');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+      document.getElementById('photoWidget').classList.add('photo-has-img');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  function removePhoto() {
+    const img = document.getElementById('photoImg');
+    const placeholder = document.getElementById('photoPlaceholder');
+    img.src = '';
+    img.style.display = 'none';
+    placeholder.style.display = 'flex';
+    document.getElementById('photoWidget').classList.remove('photo-has-img');
+    document.getElementById('photoInput').value = '';
+  }
+
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Pub tabs (UI only demo)
+  document.querySelectorAll('.pub-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pub-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
