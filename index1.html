@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aung Ko Ko Oo | CS & AI Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ── LIGHT THEME VARIABLES ── */
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --surface2: #e9ecef;
+    --border: #dee2e6;
+    --accent: #3b82f6;
+    --accent2: #0ea5e9;
+    --text: #111827;
+    --muted: #374151;
+    --dim: #6b7280;
+    --tag-bg: #f1f3f5;
+    --hero-overlay: rgba(255, 255, 255, 0);
+  }
+
+  [data-theme="dark"] {
+    /* ── DARK THEME VARIABLES ── */
+    --bg: #0b1329;
+    --surface: #111a36;
+    --surface2: #1e294b;
+    --border: #2e3d6b;
+    --accent: #60a5fa;
+    --accent2: #38bdf8;
+    --text: #f9fafb;
+    --muted: #cbd5e1;
+    --dim: #94a3b8;
+    --tag-bg: #1e294b;
+    --hero-overlay: rgba(11, 19, 41, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 24px;
+    height: 56px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  
+  [data-theme="dark"] nav {
+    background: rgba(17, 26, 54, 0.85);
+  }
+
+  nav .nav-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text);
+    margin-right: auto;
+    letter-spacing: -0.02em;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 6px 13px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  nav a:hover, nav a.active {
+    background: var(--surface2);
+    color: var(--text);
+  }
+
+  /* Theme Toggle Button */
+  .theme-toggle {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--text);
+  }
+
+  /* ── LAYOUT ── */
+  .page-shell {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .avatar-ring {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    padding: 3px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: var(--surface2);
+  }
+
+  .profile-name {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+  }
+
+  .profile-role {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .profile-affil {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .sidebar-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .sidebar-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  .contact-row a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .contact-row a:hover { color: var(--accent); text-decoration: underline; }
+
+  .icon-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .socials {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.15s;
+    background: var(--tag-bg);
+    font-weight: 600;
+  }
+  .social-btn:hover { border-color: var(--text); color: var(--text); background: var(--surface); }
+
+  .quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .quick-links a {
+    font-size: 13.5px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: background 0.12s, color 0.12s;
+  }
+  .quick-links a:hover { background: var(--surface2); color: var(--text); }
+  .quick-links a.ql-active { color: var(--accent); font-weight: 600; }
+
+  /* ── MAIN CONTENT ── */
+  .main { display: flex; flex-direction: column; gap: 56px; }
+
+  /* Pure Robotics Hardware Banner (No people/humans) */
+  .hero-banner {
+    width: 100%;
+    height: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.25s;
+  }
+
+  .hero-tag {
+    position: relative;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    font-weight: 600;
+    z-index: 2;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  /* Section header */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .head-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    transition: background 0.25s;
+  }
+
+  /* Intro */
+  .intro-text {
+    font-size: 15.5px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .intro-text a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .intro-text a:hover { background: var(--surface2); }
+
+  .intro-text strong { color: var(--text); font-weight: 600; }
+
+  /* Research interest tags */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--surface);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    transition: all 0.25s;
+  }
+
+  .tag.primary {
+    border-color: var(--text);
+    color: var(--text);
+    background: var(--surface2);
+    font-weight: 600;
+  }
+
+  /* CTA link buttons */
+  .link-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+
+  .link-btn.outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: var(--surface);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .link-btn.outline:hover { border-color: var(--text); background: var(--tag-bg); }
+
+  .link-btn.solid {
+    background: var(--text);
+    color: var(--surface);
+    border: 1px solid var(--text);
+  }
+  .link-btn.solid:hover { opacity: 0.9; }
+
+  /* Publications */
+  .pub-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    transition: all 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+  }
+  .pub-card:hover { border-color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+
+  .pub-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    margin-bottom: 6px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .pub-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+    line-height: 1.45;
+  }
+
+  .pub-authors {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .pub-authors strong { color: var(--accent); }
+
+  .pub-venue {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  /* Research Areas */
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .research-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 18px;
+    transition: all 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+  }
+  .research-card:hover { border-color: var(--text); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.04); }
+
+  .research-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .research-card h3 {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .research-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Work / experience */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--dim);
+    padding-top: 4px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  .tl-body h3 {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .tl-body .tl-org {
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .tl-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Interests */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .interest-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text);
+    transition: all 0.15s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    font-weight: 600;
+  }
+  .interest-pill:hover { border-color: var(--text); background: var(--tag-bg); }
+  .interest-pill .pill-icon { font-size: 20px; display: block; margin-bottom: 7px; }
+
+  /* News */
+  .news-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .news-item:last-child { border-bottom: none; }
+
+  .news-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    white-space: nowrap;
+    padding-top: 3px;
+    min-width: 70px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  .news-text {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .news-text a { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--border); }
+  .news-text a:hover { color: var(--accent); border-color: var(--accent); }
+  .news-text strong { color: var(--text); }
+
+  /* Blog */
+  .blog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all 0.15s;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+  }
+  .blog-card:hover { border-color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+  .blog-card-left h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  .blog-card-left p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .blog-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 32px 0 16px;
+    font-size: 12.5px;
+    color: var(--dim);
+    border-top: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    transition: border-color 0.25s;
+  }
+
+  /* Responsive styling */
+  @media (max-width: 760px) {
+    .page-shell {
+      grid-template-columns: 1fr;
+      padding: 24px 16px 80px;
+    }
+    .sidebar { position: static; }
+    .research-grid { grid-template-columns: 1fr; }
+    .interests-grid { grid-template-columns: repeat(2, 1fr); }
+    .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+    nav .nav-name { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Aung Ko Ko Oo</span>
+  <a href="#intro" class="active">Intro</a>
+  <a href="#publications">Publications</a>
+  <a href="#research">Research</a>
+  <a href="#work">Work</a>
+  <a href="#interests">Interests</a>
+  <a href="#blog">Blog</a>
+  
+  <button class="theme-toggle" id="themeBtn">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
+</nav>
+
+<div class="page-shell">
+
+  <aside class="sidebar">
+
+    <div class="profile-card">
+      <div class="avatar-ring">
+        <img src="profile.jpg" alt="Aung Ko Ko Oo" class="avatar-img">
+      </div>
+      <div class="profile-name">Aung Ko Ko Oo</div>
+      <div class="profile-role">AI Researcher · CS Student</div>
+      <div class="profile-affil">University of the People, USA</div>
+      <div class="profile-affil">Founder, Burmese Artificial Intelligence Research Institute (BAIRI)</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Email</div>
+      <div class="contact-row">
+        <div class="icon-dot"></div>
+        <a href="mailto:AungKoKoOo@uopeople.edu">AungKoKoOo@uopeople.edu</a>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Social</div>
+      <div class="socials">
+        <a href="https://github.com/sage2029" class="social-btn">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=2uIqHIMAAAAJ&hl=en&authuser=1" class="social-btn">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/austin2029/" class="social-btn">LinkedIn</a>
+        <a href="https://x.com/sage60458" class="social-btn">X</a>
+        <a href="index2.html" target="_blank" class="social-btn">Lab</a>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Quick Links</div>
+      <div class="quick-links">
+        <a href="#intro" class="ql-active">Intro</a>
+        <a href="#publications">Publications</a>
+        <a href="#research">Research Areas</a>
+        <a href="#work">Work Experience</a>
+        <a href="#interests">Interests</a>
+        <a href="#blog">Blog</a>
+      </div>
+    </div>
+
+  </aside>
+
+  <main class="main">
+
+    <div class="hero-banner">
+      <span class="hero-tag">// Robot Learning · NLP · Computer Vision · HRI</span>
+    </div>
+
+    <section id="intro">
+      <div class="section-head">
+        <h2>Intro</h2>
+        <div class="head-line"></div>
+      </div>
+      <p class="intro-text">
+        I'm a Computer Science student at <a href="https://uopeople.edu" target="_blank">University of the People</a>, USA, with a deep focus on Artificial Intelligence and its real-world applications. I am the Founder and Director of the <a href="https://connect-lab.io" target="_blank"><strong>Burmese Artificial Intelligence Research Institute (BAIRI)</strong></a> — a research collective working to advance AI research and education in Myanmar (Burma).
+      </p>
+      <br>
+      <p class="intro-text">
+        My research interests span <strong>Artificial Intelligence & Machine Learning</strong>, <strong>Computer Vision</strong>, <strong>Natural Language Processing</strong>, and <strong>Robotics & Human-Robot Interaction</strong>. I am passionate about building AI systems that are accessible, impactful, and grounded in rigorous research — particularly in under-resourced linguistic and geographic contexts.
+      </p>
+
+      <div class="tags">
+        <span class="tag primary">AI / Machine Learning</span>
+        <span class="tag primary">Computer Vision</span>
+        <span class="tag primary">NLP</span>
+        <span class="tag primary">Robotics / HRI</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Burmese NLP</span>
+        <span class="tag">Low-Resource AI</span>
+      </div>
+
+      <div class="link-buttons">
+        <a href="mailto:AungKoKoOo@uopeople.edu" class="link-btn outline">✉ Email</a>
+        <a href="AungKoKoOo_cv_tex-2.pdf" class="link-btn outline">📄 CV</a>
+        <a href="https://scholar.google.com/citations?user=2uIqHIMAAAAJ&hl=en&authuser=1" class="link-btn outline">Google Scholar</a>
+        <a href="index2.html" target="_blank" class="link-btn solid">🔬 BAIRI Lab</a>
+        <a href="#blog" class="link-btn outline">✍ Blog</a>
+      </div>
+    </section>
+
+    <section id="news">
+      <div class="section-head">
+        <h2>News</h2>
+        <div class="head-line"></div>
+      </div>
+      <div>
+        <div class="news-item">
+          <span class="news-date">2026</span>
+          <span class="news-text"><strong>Founded</strong> the Burmese Artificial Intelligence Research Institute (<a href="index2.html">BAIRI</a>), a research lab focused on advancing AI in Myanmar.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span class="news-text">Enrolled at <a href="https://www.uopeople.edu/" target="_blank"><strong>University of the People</strong></a>, pursuing a B.Sc. in Computer Science.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="section-head">
+        <h2>Publications</h2>
+        <div class="head-line"></div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-meta">2026 · Preprint</div>
+        <div class="pub-title">Integrating Natural Language Processing with Deep Knowledge Tracing in Intelligent Tutoring Systems for Low-Resource Languages: A Case Study on Burmese STEM Curricula</div>
+        <div class="pub-authors"><strong>Aung Ko Ko Oo</strong></div>
+        <span class="pub-venue">BAIRI Research Paper </span>
+        <div class="pub-links">
+          <a href="https://www.researchsquare.com/article/rs-9991485/v1.pdf?c=1781160343000" class="pub-link">PDF</a>
+          <a href="https://doi.org/10.21203/rs.3.rs-9991485/v1" class="pub-link">DOI</a>
+          <a href="https://github.com/sage2029/BAIRI-omni-research" class="pub-link">Code</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-meta">In Progress</div>
+        <div class="pub-title">Detecting Clickbait on Social Media for Low-Resource Languages: A Case Study on Burmese News Headlines</div>
+        <div class="pub-authors"><strong>Aung Ko Ko Oo</strong></div>
+        <span class="pub-venue">Manuscript in Preparation</span>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-meta">In Progress</div>
+        <div class="pub-title">Mitigating Hallucinations in Large Language Models forBurmese Domain-Specific Question Answering</div>
+        <div class="pub-authors"><strong>Aung Ko Ko Oo</strong></div>
+        <span class="pub-venue">Manuscript in Preparation</span>
+      </div>
+
+
+    </section>
+
+    <section id="research">
+      <div class="section-head">
+        <h2>Research Areas</h2>
+        <div class="head-line"></div>
+      </div>
+      <div class="research-grid">
+        <div class="research-card">
+          <div class="research-icon">🧠</div>
+          <h3>AI / Machine Learning</h3>
+          <p>Deep learning architectures, reinforcement learning, transfer learning, and developing AI systems for low-resource settings.</p>
+        </div>
+        <div class="research-card">
+          <div class="research-icon">👁</div>
+          <h3>Computer Vision</h3>
+          <p>Object detection, scene understanding, image segmentation, and vision-language models for multi-modal perception.</p>
+        </div>
+        <div class="research-card">
+          <div class="research-icon">🗣</div>
+          <h3>Natural Language Processing</h3>
+          <p>Burmese language modeling, low-resource NLP, machine translation, and cross-lingual understanding.</p>
+        </div>
+        <div class="research-card">
+          <div class="research-icon">🤖</div>
+          <h3>Robotics / Human-Robot Interaction</h3>
+          <p>Assistive robotics, socially-aware robot systems, dexterous manipulation, and HRI design for diverse communities.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-head">
+        <h2>Work Experience</h2>
+        <div class="head-line"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="tl-date">2026 – Present</div>
+          <div class="tl-body">
+            <h3>Founder & Research Director</h3>
+            <div class="tl-org"><a href="index2.html" style="color:inherit;text-decoration:none;border-bottom:1px dashed var(--accent);">Burmese Artificial Intelligence Research Institute (BAIRI)</a></div>
+            <p>Founded and lead an AI research institute advancing machine learning, NLP, and computer vision research in Myanmar. Building open-source tools, datasets, and educational resources for the Burmese-speaking AI community.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">2025 – Present</div>
+          <div class="tl-body">
+            <h3>Computer Science Student</h3>
+            <div class="tl-org">University of the People, USA</div>
+            <p>Pursuing a B.Sc. in Computer Science. Core coursework in algorithms, data structures, software engineering, and artificial intelligence. Conducting independent AI research alongside studies.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">2025</div>
+          <div class="tl-body">
+            <h3>Independent AI Researcher</h3>
+            <div class="tl-org">Self-Directed Research</div>
+            <p>Conducting research on Burmese NLP, low-resource language modeling, and human-robot interaction. Collaborating with international researchers and open-source communities.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="section-head">
+        <h2>Interests</h2>
+        <div class="head-line"></div>
+      </div>
+      <div class="interests-grid">
+        <div class="interest-pill">
+          <span class="pill-icon">🧬</span>
+          Deep Learning Theory
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🌏</span>
+          Low-Resource AI
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🤝</span>
+          Human-Robot Interaction
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">📝</span>
+          Burmese NLP
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🎓</span>
+          AI Education
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🔭</span>
+          Open-Source Science
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">📷</span>
+          Computer Vision
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🗺</span>
+          Tech for SEA
+        </div>
+        <div class="interest-pill">
+          <span class="pill-icon">🤖</span>
+          Assistive Robotics
+        </div>
+      </div>
+    </section>
+
+    <section id="blog">
+      <div class="section-head">
+        <h2>Blog</h2>
+        <div class="head-line"></div>
+      </div>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-left">
+          <h3>Why Burmese NLP Matters: A Case for Low-Resource Language Research</h3>
+          <p>An argument for investing in under-resourced Southeast Asian languages and what progress looks like.</p>
+        </div>
+        <div class="blog-date">2025/05</div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-left">
+          <h3>Getting Started with Transformer Models on Limited Hardware</h3>
+          <p>Practical techniques for training and fine-tuning LLMs when you don't have a GPU cluster.</p>
+        </div>
+        <div class="blog-date">2025/03</div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-left">
+          <h3>Human-Robot Interaction: Designing Robots People Actually Trust</h3>
+          <p>Reflections on what makes HRI systems feel natural, and the cultural dimensions often overlooked in robotics research.</p>
+        </div>
+        <div class="blog-date">2025/01</div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-left">
+          <h3>Building BAIRI: Starting an AI Research Institute from Scratch</h3>
+          <p>The story of founding a research institute in Myanmar, the challenges, and the mission that drives it forward.</p>
+        </div>
+        <div class="blog-date">2024/12</div>
+      </a>
+
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  © 2026 Aung Ko Ko Oo · AungKoKoOo@uopeople.edu · BAIRI
+</footer>
+
+<script>
+  // Theme Switching Logic
+  const htmlEl = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeText = document.getElementById('themeText');
+
+  themeBtn.addEventListener('click', () => {
+    const currentTheme = htmlEl.getAttribute('data-theme');
+    if (currentTheme === 'light') {
+      htmlEl.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light Vibe';
+    } else {
+      htmlEl.setAttribute('data-theme', 'light');
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark Mode';
+    }
+  });
+
+  // Navigation tracking
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
